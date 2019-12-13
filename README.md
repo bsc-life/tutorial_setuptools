@@ -6,7 +6,7 @@
 
 *Note: This is a tutorial from an ammateur developer of a Python package. Despite my inexperience, I decided to share my little knwoledge and perhaps save some of your time. Since I struggled sometimes to understand and implement some of the functions of my command line, I tried to point out those not-so-obvious steps. I think this is a good manual if you are a beginner like me.*
 
-Here you will find an easy-to-follow recipe to build your own Python command-line application.
+**Here you will find an easy-to-follow recipe to build your own Python command-line application.**
 
 
 # DIRECTORY STRUCTURE
