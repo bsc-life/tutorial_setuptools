@@ -15,13 +15,13 @@ The directory structure, so far, should look like this:
 
 ```hl_lines="4" 
 mypackage
-|___ _ README_
-|___ _ MANIFEST.in
-|___ _ setup.py
+|___ README
+|___ MANIFEST.in
+|___ setup.py
 |___ application1
-|          |___   ___init__.py
-|          |___   ___main__.py 
-|          |___   _fun1.py
+|          |___   __init__.py
+|          |___   __main__.py 
+|          |___   fun1.py
 |          |___   ...
 |          |___   data
 |          |	    |___  data.dat
@@ -29,9 +29,9 @@ mypackage
 |          |___   dependencies
 |         	       |___  _dependencies.txt
 |___ application2
-           |___   ___init__.py
-           |___   ___main__.py 
-           |___   _fun2.py_
+           |___   __init__.py
+           |___   __main__.py 
+           |___   fun2.py
            |___   ...
 ```
 
@@ -81,7 +81,7 @@ include data/data.dat
 ```
 
 ----
-# 3 - Setup of virtual environment
+## 3. Setup of virtual environment
 
 To test your package in 'developent mode' (i.e.: locally), we create a virtual environment. In this way, we avoid to install the package in our global library allowing us to correct possible mistakes more easily. 
 
@@ -105,7 +105,7 @@ Anything we write from now on in our terminal will be executed **only** in the v
 
 
 ----
-# 4 - Create setup.py 
+## 4. Create setup.py 
 
 An example of a `setup.py` script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and the docummentation can be found [here](https://setuptools.readthedocs.io/en/latest/setuptools.html). Therefore, I will not extend on the concept of setup.py or which type of elements we can include. Hereby find an example of my [setup.py](https://github.com/bsc-life/tutorial_setuptools/blob/master/setup.py)
 
@@ -149,7 +149,7 @@ setup(
 )
 ```
 
-## 4.1 Data files
+### **4.1 Data files**
 
 When our code depends on data files and we want to include them in the installation process we need to add the option `package_data`. 
 
@@ -167,7 +167,7 @@ setup(...,
 [Here](https://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files) you can find a more detailed example. Remember to include the MANIFEST.in file to specify the location of the data files. [Here](https://wiki.python.org/moin/Distutils/Tutorial) you can find an example of the file. 
 
 
-## 4.2 What if my package has an external dependency written in C.
+### **4.2 What if my package has an external dependency written in C.**
 
 If that is your case, there is a nice and easy workaround to download and compile your package during the installation process. Find below more information about this. 
 
@@ -177,12 +177,11 @@ If that is your case, there is a nice and easy workaround to download and compil
 
 - See an example of how to implement distutils [here](https://stackoverflow.com/questions/1754966/how-can-i-run-a-makefile-in-setup-py/1763900#1763900) and [here](https://github.com/Mykrobe-tools/mykrobe/blob/master/setup.py).
 
-My example, based on the previous ones, can be found below. In my case, my package depends on [BCFTools](https://samtools.github.io/bcftools/), hosted in GitHub. All I had to do is to implement the downloading a installation instructions within my installation process. What I am doing is the next: 
+My example, based on the previous ones, can be found below. In my case, my package depends on [BCFTools](https://samtools.github.io/bcftools/bcftools.html), hosted in [GitHub](https://github.com/samtools/bcftools). All I had to do is to implement the downloading a installation instructions within my installation process. What I am doing is the next: 
 
    1) Tell setup.py to clone the necessary repositories.
    2) Compile the package
    3) Copy the necessary executable files to the bin directory
-   4) That is all 
 
 
 ```python
@@ -190,10 +189,10 @@ My example, based on the previous ones, can be found below. In my case, my packa
 from setuptools.command.install import install as DistutilsInstall
 
 class git_clone_external(DistutilsInstall):
-   def run(self):
 
-       bcftools_dir = os.path.dirname(os.path.realpath(__file__)) + "/bcftools"
-       htslib_dir = os.path.dirname(os.path.realpath(__file__))+" /htslib"
+   def run(self):
+       bcftools_dir = os.path.dirname(os.path.realpath(__file__)) + "bcftools"
+       htslib_dir = os.path.dirname(os.path.realpath(__file__))+" htslib"
 
        if not os.path.exists(htslib_dir):
            command1 = ['git', 'clone', 'git://github.com/samtools/htslib.git', ]
@@ -208,9 +207,11 @@ class git_clone_external(DistutilsInstall):
       # program. You have to figure out where to find this scripts. Take into account
       # that my working dir is 'bcftools_dir'. 
        subprocess.call(
-           ["cp", "bcftools", "%s/bin/" % os.environ.get('VIRTUAL_ENV', '/usr/local/')], cwd=bcftools_dir) 
+           ["cp", "bcftools", "%s/bin/" % os.environ.get('VIRTUAL_ENV', '/usr/local/')],
+           cwd=bcftools_dir) 
        subprocess.call(
-           ["cp", "plugins/split-vep.so", "%s/bin/" % os.environ.get('VIRTUAL_ENV', '/usr/local/')], cwd=bcftools_dir)
+           ["cp", "plugins/split-vep.so", "%s/bin/" % os.environ.get('VIRTUAL_ENV', '/usr/local/')],
+            cwd=bcftools_dir)
 
        DistutilsInstall.run(self)
 
@@ -219,86 +220,107 @@ class git_clone_external(DistutilsInstall):
 setup(..., cmdclass={'install': git_clone_external}, ...)
 ```
 
+Note: if you have written a dependency in C, then you should check the use of **`ext_modules`** in setup.py. 
 
-Note: if you have written a dependency in C, then you should check the use of **‘ext_modules’ **in setup.py. 
+----
+## 5. Install the package
 
+cd to your package directory and execute:
 
-# 5 - Install the package
-
-cd to your package directory and the execute:
-
-```
+```shell 
 pip install .     	
 ```
 
+If you still want to add some changes and avoid doing `pip install . ` every time you add them, then execute:
 
-If you still want to add some changes and avoid doing `pip install . `every time you add some changes, execute :
-
-
-```
+```shell 
 pip install -e .
 ```
-
-
 This is the developer mode, so any change included in your code will be automatically updated in the code installed by pip.
+
+**Note:** take into accound that this last command will not compile the dependencies and when executing the package, it will not work. 
+
+
+### **Check if installation was succesful**
 
 To check if the installation is well done, type: 
 
-
-```
-pip show -f mypackage
-```
-
-
-In the printed output you should see the tree structure indicated at the beginning of the tutorial  but this time is stored in the /bin folder. 
-
-
-# How to install a PIP package hosted on a public or private Github repository
-
-If the package is in a public repo,you need to use the proper git URL. Use: 
-
-
-```
-pip install git+https://github.com/vicruiser/PDBmapper.git
+```shell
+ pip show -f mypackage
 ```
 
+The printed output should show the tree file structure indicated at the beginning of the tutorial copied in the `/bin` folder. 
 
-or
-
-
-```
-pip install git+git://github.com/vicruiser/PDBmapper.git
-```
-
-
- If the project is hosted in a private repo, more details can be found [here](https://dev.to/rf_schubert/how-to-create-a-pip-package-and-host-on-private-github-repo-58pa). The following command should run just fine: 
-
+Also, execute your command line application. 
 
 ```
-pip install git+ssh://git@github.com/vicruiser/PDBmapper.git
+ mypackage
 ```
+Now your package should be executed correctly. 
 
-
-3.B HOW TO UPLOAD MY PACKAGE TO PyPi
-
-All details can be found [here](https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56). 
-
-4 - EXECUTE COMMAND-LINE APPLICATION
-
-Now, by just typing ‘mypackage’ in the command line , the package should be executed.
-
-5 - CLOSE THE VIRTUAL ENVIRONMENT
+---
+## 6. Deactivate the virtual environment
 
 After checking that the package works as expected, we deactivate and erase the virtual environment:  
 
-
-```
+```shell
 deactivate
 rm -r  venv_test_package
 ```
 
-
 Now you are ready to distribute your package and install it outside of a virtual environment. 
+
+---
+## 7.Different ways to do the definitive installation of your package
+
+### From GitHub
+
+#### Clone and install the package
+
+To install Python package from github, you need to clone that repository.
+
+```shell
+git clone https://github.com/jkbr/httpie.git
+```
+
+Then just run the `setup.py` file from that directory,
+
+```shell
+sudo python setup.py install
+```
+
+
+#### PIP from public GitHub repository 
+
+If the package is in a public repo, use either: 
+```shell
+pip install git+https://github.com/user/mypackage.git
+```
+or
+
+```shell
+pip install git+git://github.com/user/mypackage.git
+```
+
+#### PIP from private GitHub repository
+
+If the project is hosted in a private repo, a ssh key needs to be generated. This allows permision to your computer to install the package. More details can be found [here](https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html). After this, the following command should run just fine: 
+
+```
+pip install git+ssh://git@github.com/user/mypackage.git
+```
+
+### From PiPy
+This is the easiest and fastest way to install your package. 
+
+```shell
+pip install mypackage
+```
+To do this, the package should be published in PyPi. 
+#### Note: How to upload my package to PyPi
+
+Once your pacakge or application is ready, you can consider to upload it to PyPi. In this way, you will be able to install it 
+All details can be found [here](https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56).
 
 
 <!-- Docs to Markdown version 1.0β17 -->

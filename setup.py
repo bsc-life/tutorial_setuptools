@@ -4,6 +4,8 @@ from setuptools import setup, find_packages  # pylint: disable=no-name-in-module
 from setuptools.command.install import install as DistutilsInstall
 import io
 from os import path
+import os
+import subprocess
 
 here = path.abspath(path.dirname(__file__))
 
