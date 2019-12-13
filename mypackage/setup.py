@@ -10,10 +10,10 @@ import subprocess
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'README'), encoding='utf-8') as f:
     long_description = f.read()
 # Get the requirements of the packages
-with open('mypackage/dependencies/dependencies.txt') as f:
+with open('application1/dependencies/dependencies.txt') as f:
     requirements = f.read().splitlines()
 
 # external repository in C
@@ -52,12 +52,12 @@ class git_clone_external(DistutilsInstall):
 setup(
     name='mypackage',  # Required
     version='0.1.0',  # Required
-    author='Victoria Ruiz-Serra',  # Optional
-    author_email='',  # Optional
-    url="https://github.com/user/yourpackage",  # Optional
+    author='Author',  # Optional
+    author_email='Email',  # Optional
+    url="https://github.com/bsc-life/tutorial_setuptools",  # Optional
     # Note: To download the package first you have to make it public and do a release
-    download_url='https://github.com/user/pkg/archive/v_01.tar.gz',
-    description='Ashort description here',  # Optional
+    download_url='https://github.com/bsc-life/tutorial_setuptools/archive/v_01.tar.gz',
+    description='A short description here',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
     keywords=["some", "keywords", "heaywords"],  # Optional
@@ -68,6 +68,6 @@ setup(
         "console_scripts": ['application1=application1.__main__:main',
                             'application2=application2.__main__:main']
     },
-    package_data={'pdbmapper': ['data/*']},
+    package_data={'mypackage/application1': ['data/*']},
     cmdclass={'install': git_clone_external}
 )

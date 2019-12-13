@@ -123,7 +123,7 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f: 
    long_description = f.read() 
 # Get the requirements of the packages 
-with open('mypackage/dependencies/dependencies.txt') as f: 
+with open('application1/dependencies/dependencies.txt') as f: 
    requirements = f.read().splitlines() 
 # Arguments marked as "Required" below must be included for upload to PyPI. 
 # Fields marked as "Optional" may be commented out. 
