@@ -1,69 +1,56 @@
 # Instructions to build a command line application
 
-**Programming Language**: Python 3.6
-**Author**: Victoria Ruiz-Serra
-**e-mail**: victoria.ruizserra@bsc.es
+- **Programming Language**: Python 3.6
+- **Author**: Victoria Ruiz-Serra
+- **e-mail**: victoria.ruizserra@bsc.es
 
 *Note: This is a tutorial from an ammateur developer of a Python package. Despite my inexperience, I decided to share my little knwoledge and perhaps save some of your time. Since I struggled sometimes to understand and implement some of the functions of my command line, I tried to point out those not-so-obvious steps. I think this is a good manual if you are a beginner like me.*
 
 **Here you will find an easy-to-follow recipe to build your own Python command-line application.**
 
-
-# DIRECTORY STRUCTURE
+-------------
+## 1. Directory Structure
 
 The directory structure, so far, should look like this:
 
-**mypackage**
-
+```python hl_line="4" 
+mypackage
 |___ _ README_
-
 |___ _ MANIFEST.in_
-
 |___ _ setup.py_
-
-|___ **application1**
-
+|___ application1
 |          |___   ___init__.py_
-
-|          |___   ___main__.py _ watch out!  write correctly the name of the scripts without any space
-
+|          |___   ___main__.py _ 
 |          |___   _fun1.py_
-
 |          |___   …
-
 |          |___   data
-
 |          |	       |___  _data.dat_
-
 |          |___   dependencies
-
 |         	       |___  _dependencies.txt_
-
-|___ **application2**
-
+|___ application2
            |___   ___init__.py_
-
            |___   ___main__.py _ 
-
            |___   _fun2.py_
-
            |___   …
+```
 
+Note: watch out!  write correctly the name of the scripts without any space
 
-# SCRIPTS 
+--------
+## 2. Scripts content 
 
 __init__.py  → Usually is left empty
 
 __main__.py → Executes the command line app
 
-
-```
+```python 
 # coding: utf-8
 #"""mypackage.__main__: executed when mypackage directory is called as script."""
 from .fun1 import main
 if __name__ == '__main__':
    main()
 ```
+fffff eueueu
 
 
 fun1.py
