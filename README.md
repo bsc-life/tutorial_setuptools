@@ -319,8 +319,7 @@ pip install mypackage
 To do this, the package should be published in PyPi. 
 #### Note: How to upload my package to PyPi
 
-Once your pacakge or application is ready, you can consider to upload it to PyPi. In this way, you will be able to install it 
-All details can be found [here](https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56).
+Once your pacakge or application is ready, you can consider to upload it to PyPi. In this way, you will be able to install it. All details can be found [here](https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56).
 
 
 <!-- Docs to Markdown version 1.0β17 -->

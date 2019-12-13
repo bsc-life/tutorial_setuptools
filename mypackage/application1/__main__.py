@@ -2,4 +2,4 @@
 #"""mypackage.__main__: executed when mypackage directory is called as script."""
 from .fun1 import main
 if __name__ == '__main__':
-   main()
+    main()
