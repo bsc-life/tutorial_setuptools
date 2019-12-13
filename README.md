@@ -130,8 +130,8 @@ with open('mypackage/dependencies/dependencies.txt') as f:
 setup( 
    name='mypackage',  # Required 
    version='0.1.0',  # Required 
-   author='Victoria Ruiz-Serra',  # Optional 
-   author_email='',  # Optional 
+   author='NAME',  # Optional 
+   author_email='EMAIL',  # Optional 
    url="https://github.com/user/yourpackage",  # Optional 
    # Note: To download the package first you have to make it public and do a release 
    download_url='https://github.com/user/pkg/archive/v_01.tar.gz',  
@@ -158,7 +158,7 @@ When our code depends on data files and we want to include them in the installat
 setup(...,
       # And include any *.dat files found in the 'data' subdirectory
       # of the 'mypackage' package, also:
-      package_data={'pdbmapper': ['data/*'] }
+      package_data={'mypackage/application1': ['data/*'] }
    }, ...
 )
 ```
@@ -280,7 +280,7 @@ Now you are ready to distribute your package and install it outside of a virtual
 To install Python package from github, you need to clone that repository.
 
 ```shell
-git clone https://github.com/jkbr/httpie.git
+git clone https://github.com/suer/mypackage.git
 ```
 
 Then just run the `setup.py` file from that directory,
