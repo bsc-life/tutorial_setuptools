@@ -304,7 +304,7 @@ pip install git+git://github.com/user/mypackage.git
 
 #### PIP from private GitHub repository
 
-If the project is hosted in a private repo, a ssh key needs to be generated. This allows permision to your computer to install the package. More details can be found [here](https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html). After this, the following command should run just fine: 
+If the project is hosted in a private repo, a ssh key needs to be generated. This allows permision to your computer to install the package. More details can be found [here](https://jdblischak.github.io/2014-09-18-chicago/novice/git/05-sshkeys.html) and [here](https://help.github.com/en/enterprise/2.16/user/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). After this, the following command should run just fine: 
 
 ```
 pip install git+ssh://git@github.com/user/mypackage.git
