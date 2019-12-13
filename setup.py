@@ -67,4 +67,5 @@ setup(
                             'application2=application2.__main__:main']
     },
     package_data={'pdbmapper': ['data/*']},
+    cmdclass={'install': git_clone_external}
 )

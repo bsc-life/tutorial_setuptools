@@ -167,21 +167,22 @@ setup(...,
 [Here](https://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files) you can find a more detailed example. Remember to include the MANIFEST.in file to specify the location of the data files. [Here](https://wiki.python.org/moin/Distutils/Tutorial) you can find an example of the file. 
 
 
-## 4.2 What if my package has dependencies written in C.
+## 4.2 What if my package has an external dependency written in C.
 
-If that is the case, there is a nice and easy workaround to download and compile your package during the installation process. Find below more information about this. 
+If that is your case, there is a nice and easy workaround to download and compile your package during the installation process. Find below more information about this. 
 
-**From [distutils documentation](https://docs.python.org/3.6/library/distutils.html)**:
+- **From [distutils documentation](https://docs.python.org/3.6/library/distutils.html)**:
 *The [distutils](https://docs.python.org/3/library/distutils.html#module-distutils) package provides support for building and installing additional modules into a Python installation. The new modules may be either 100%-pure Python, or may be extension modules written in C, or may be collections of Python packages which include modules coded in both Python and C.*
-
 *Most Python users will _not_ want to use this module directly, but instead use the cross-version tools maintained by the Python Packaging Authority. In particular,[ setuptools](https://setuptools.readthedocs.io/en/latest/) is an enhanced alternative to[ distutils](https://docs.python.org/3/library/distutils.html#module-distutils).*
 
-See an example of how to implement distutils [here](https://stackoverflow.com/questions/1754966/how-can-i-run-a-makefile-in-setup-py/1763900#1763900) and [here](https://github.com/Mykrobe-tools/mykrobe/blob/master/setup.py).
+- See an example of how to implement distutils [here](https://stackoverflow.com/questions/1754966/how-can-i-run-a-makefile-in-setup-py/1763900#1763900) and [here](https://github.com/Mykrobe-tools/mykrobe/blob/master/setup.py).
 
 My example, based on the previous ones, can be found below. In my case, my package depends on [BCFTools](https://samtools.github.io/bcftools/), hosted in GitHub. All I had to do is to implement the downloading a installation instructions within my installation process. What I am doing is the next: 
 
    1) Tell setup.py to clone the necessary repositories.
-   2) 
+   2) Compile the package
+   3) Copy the necessary executable files to the bin directory
+   4) That is all 
 
 
 ```python
@@ -215,7 +216,7 @@ class git_clone_external(DistutilsInstall):
 
 ...
 
-setup(..., cmdclass={'install': MyInstall}, ...)
+setup(..., cmdclass={'install': git_clone_external}, ...)
 ```
 
 
