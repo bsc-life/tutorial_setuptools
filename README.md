@@ -107,9 +107,9 @@ Anything we write from now on in our terminal will be executed **only** in the v
 ----
 # 4 - Create setup.py 
 
-An example of a setup.py script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and [here](https://setuptools.readthedocs.io/en/latest/setuptools.html).
+An example of a `setup.py` script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and the docummentation can be found [here](https://setuptools.readthedocs.io/en/latest/setuptools.html). Therefore, I will not extend on the concept of setup.py or which type of elements we can include. Hereby find an example of my [setup.py][]
 
-Important info regarding package directory: do not mistake `package_dir `with` package. `It is better to use only the variable` package `and this should indicate the directory of our package!!! (really, it isn’t so obvious).
+**Important info regarding package directory**: do not mistake `package_dir` with `package`. It is better to use only the variable `package` and this should indicate the directory of our package!!! (really, it isn’t so obvious).
 
 ```python
 # Always prefer setuptools over distutils 
