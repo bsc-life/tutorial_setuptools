@@ -13,7 +13,7 @@
 
 The directory structure, so far, should look like this:
 
-```python hl_line="4" 
+```hl_lines="4" 
 mypackage
 |___ _ README_
 |___ _ MANIFEST.in_
