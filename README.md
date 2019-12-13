@@ -4,7 +4,7 @@
 - **Author**: Victoria Ruiz-Serra
 - **e-mail**: victoria.ruizserra@bsc.es
 
-*Note: This is a tutorial from an ammateur developer of a Python package. Despite my inexperience, I decided to share my little knwoledge and perhaps save some of your time. Since I struggled sometimes to understand and implement some of the functions of my command line, I tried to point out those not-so-obvious steps. I think this is a good manual if you are a beginner like me.*
+*Note: This is a tutorial from an ammateur developer of a Python package. Despite my inexperience, I decided to share my little knwoledge and perhaps save some of your time. Since I struggled sometimes to understand and implement some of the functions of my command line app, I tried to point out those not-so-obvious steps. Theregore, I think this is a good manual if you are a beginner like me.*
 
 **Here you will find an easy-to-follow recipe to build your own Python command-line application.**
 
@@ -40,9 +40,9 @@ Note: watch out!  write correctly the name of the scripts without any space in t
 --------
 ## 2. Scripts content 
 
-__init__.py  → Usually is left empty
+- `__init__.py`  → Usually is left empty
 
-__main__.py → Executes the command line app
+- `__main__.py` → Executes the command line app
 
 ```python 
 # coding: utf-8
@@ -52,15 +52,14 @@ if __name__ == '__main__':
    main()
 ```
 
-fun1.py
+- `fun1.py`
 ```python 
 # coding: utf-8
 def main():
    print('this is just a test for app1')
 ```
 
-
-fun2.py
+- `fun2.py`
 
 ```python 
 # coding: utf-8
@@ -69,28 +68,43 @@ def main():
 ```
 
 
-dependencies.txt
+- `dependencies.txt` contains the necessary Python dependencies of our package. This file can be obtained by executing:
+```
+pip freeze > dependencies.txt
+```
 
-data.dat and MANIFEST.in
 
+- `data.dat` and `MANIFEST.in` are the file that contain the necessary data for the package and the file that tells the package to include this data respectively. An example of `MANIFEST.in`:
 
+```
+include data/data.dat
+```
+
+----
 # 3 - Setup of virtual environment
 
-To test your package locally, first we create a virtual environment. In this way, we avoid to install the package in our library when it is in “developer” or unfinished mode. To setup the virtual environment, we do the following: 
+To test your package in 'developent mode' (i.e.: locally), we create a virtual environment. In this way, we avoid to install the package in our global library allowing us to correct possible mistakes more easily. 
+
+To setup the virtual environment, we do the following: 
 
 
 ```shell
-virtualenv -p python3 venv
-. venv/bin/activate
+virtualenv -p python3 venv  # venv is created and contains the virtual environment 
+. venv/bin/activate  #activate the environment
 ```
+If everything went right, now, instead of
+```shell
+ $
+```
+ we have 
 
-Now, instead of $ in the terminal, we have: 
 ```shell
 (venv) $
 ```
-Anything we write from now on in our terminal will be executed **only** in the virtual environment that we have created. 
+Anything we write from now on in our terminal will be executed **only** in the virtual environment that we have just created. 
 
 
+----
 # 4 - Create setup.py 
 
 An example of a setup.py script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and [here](https://setuptools.readthedocs.io/en/latest/setuptools.html).
