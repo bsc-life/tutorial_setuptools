@@ -107,9 +107,9 @@ Anything we write from now on in our terminal will be executed **only** in the v
 ----
 # 4 - Create setup.py 
 
-An example of a `setup.py` script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and the docummentation can be found [here](https://setuptools.readthedocs.io/en/latest/setuptools.html). Therefore, I will not extend on the concept of setup.py or which type of elements we can include. Hereby find an example of my [setup.py][]
+An example of a `setup.py` script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and the docummentation can be found [here](https://setuptools.readthedocs.io/en/latest/setuptools.html). Therefore, I will not extend on the concept of setup.py or which type of elements we can include. Hereby find an example of my [setup.py](https://github.com/bsc-life/tutorial_setuptools/blob/master/setup.py)
 
-**Important info regarding package directory**: do not mistake `package_dir` with `package`. It is better to use only the variable `package` and this should indicate the directory of our package!!! (really, it isn’t so obvious).
+**Important info regarding package directory**: do not mistake `package_dir` with `package`. It is better to use only the variable `package` and this indicates the directory of our package!!! (really, it isn’t so obvious).
 
 ```python
 # Always prefer setuptools over distutils 
@@ -151,7 +151,7 @@ setup(
 
 ## 4.1 Data files
 
-When our code depends on data files and we want to include them in the installation process we need to add the option ‘package data’ in  setup.py. 
+When our code depends on data files and we want to include them in the installation process we need to add the option `package_data`. 
 
 
 ```python
@@ -159,25 +159,29 @@ setup(...,
       # And include any *.dat files found in the 'data' subdirectory
       # of the 'mypackage' package, also:
       package_data={'pdbmapper': ['data/*'] }
-      
-       
    }, ...
 )
 ```
 
 
-[Here](https://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files) you can find a more detailed explanation. Remember to include a MANIFEST.in file to specify the location of the data files. [Here](https://wiki.python.org/moin/Distutils/Tutorial) you can find an example of that file. 
+[Here](https://setuptools.readthedocs.io/en/latest/setuptools.html#including-data-files) you can find a more detailed example. Remember to include the MANIFEST.in file to specify the location of the data files. [Here](https://wiki.python.org/moin/Distutils/Tutorial) you can find an example of the file. 
 
 
-# My package has c++ dependencies
+## 4.2 What if my package has dependencies written in C.
 
-The[ distutils](https://docs.python.org/3/library/distutils.html#module-distutils) package provides support for building and installing additional modules into a Python installation. The new modules may be either 100%-pure Python, or may be extension modules written in C, or may be collections of Python packages which include modules coded in both Python and C.
+If that is the case, there is a nice and easy workaround to download and compile your package during the installation process. Find below more information about this. 
 
-Most Python users will _not_ want to use this module directly, but instead use the cross-version tools maintained by the Python Packaging Authority. In particular,[ setuptools](https://setuptools.readthedocs.io/en/latest/) is an enhanced alternative to[ distutils](https://docs.python.org/3/library/distutils.html#module-distutils) that provides:
+**From [distutils documentation](https://docs.python.org/3.6/library/distutils.html)**:
+*The [distutils](https://docs.python.org/3/library/distutils.html#module-distutils) package provides support for building and installing additional modules into a Python installation. The new modules may be either 100%-pure Python, or may be extension modules written in C, or may be collections of Python packages which include modules coded in both Python and C.*
 
-See an example of how to implement distutils  [here](https://stackoverflow.com/questions/1754966/how-can-i-run-a-makefile-in-setup-py/1763900#1763900) and [here](https://github.com/Mykrobe-tools/mykrobe/blob/master/setup.py).
+*Most Python users will _not_ want to use this module directly, but instead use the cross-version tools maintained by the Python Packaging Authority. In particular,[ setuptools](https://setuptools.readthedocs.io/en/latest/) is an enhanced alternative to[ distutils](https://docs.python.org/3/library/distutils.html#module-distutils).*
 
-My example can be found below. My package depends on BCFTools which is hosted in github. I just indicate the download 
+See an example of how to implement distutils [here](https://stackoverflow.com/questions/1754966/how-can-i-run-a-makefile-in-setup-py/1763900#1763900) and [here](https://github.com/Mykrobe-tools/mykrobe/blob/master/setup.py).
+
+My example, based on the previous ones, can be found below. In my case, my package depends on [BCFTools](https://samtools.github.io/bcftools/), hosted in GitHub. All I had to do is to implement the downloading a installation instructions within my installation process. What I am doing is the next: 
+
+   1) Tell setup.py to clone the necessary repositories.
+   2) 
 
 
 ```python
@@ -218,10 +222,9 @@ setup(..., cmdclass={'install': MyInstall}, ...)
 Note: if you have written a dependency in C, then you should check the use of **‘ext_modules’ **in setup.py. 
 
 
-# 3.A - INSTALL THE PACKAGE
+# 5 - Install the package
 
 cd to your package directory and the execute:
-
 
 ```
 pip install .     	
