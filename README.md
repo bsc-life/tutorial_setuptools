@@ -16,25 +16,26 @@ The directory structure, so far, should look like this:
 ```hl_lines="4" 
 mypackage
 |___ _ README_
-|___ _ MANIFEST.in_
-|___ _ setup.py_
+|___ _ MANIFEST.in
+|___ _ setup.py
 |___ application1
-|          |___   ___init__.py_
-|          |___   ___main__.py _ 
-|          |___   _fun1.py_
-|          |___   …
+|          |___   ___init__.py
+|          |___   ___main__.py 
+|          |___   _fun1.py
+|          |___   ...
 |          |___   data
-|          |	       |___  _data.dat_
+|          |	    |___  data.dat
+|          |	    |___  ...
 |          |___   dependencies
-|         	       |___  _dependencies.txt_
+|         	       |___  _dependencies.txt
 |___ application2
-           |___   ___init__.py_
-           |___   ___main__.py _ 
+           |___   ___init__.py
+           |___   ___main__.py 
            |___   _fun2.py_
-           |___   …
+           |___   ...
 ```
 
-Note: watch out!  write correctly the name of the scripts without any space
+Note: watch out!  write correctly the name of the scripts without any space in the case of `__main__.py`  and `__init__.py`
 
 --------
 ## 2. Scripts content 
@@ -50,13 +51,9 @@ from .fun1 import main
 if __name__ == '__main__':
    main()
 ```
-fffff eueueu
-
 
 fun1.py
-
-
-```
+```python 
 # coding: utf-8
 def main():
    print('this is just a test for app1')
@@ -65,8 +62,7 @@ def main():
 
 fun2.py
 
-
-```
+```python 
 # coding: utf-8
 def main():
    print('this is just a test for app2')
@@ -78,95 +74,81 @@ dependencies.txt
 data.dat and MANIFEST.in
 
 
-# 1 - SETUP OF VIRTUAL ENVIRONMENT
+# 3 - Setup of virtual environment
 
 To test your package locally, first we create a virtual environment. In this way, we avoid to install the package in our library when it is in “developer” or unfinished mode. To setup the virtual environment, we do the following: 
 
 
-```
+```shell
 virtualenv -p python3 venv
 . venv/bin/activate
 ```
 
-
 Now, instead of $ in the terminal, we have: 
-
-
-```
+```shell
 (venv) $
 ```
-
-
 Anything we write from now on in our terminal will be executed **only** in the virtual environment that we have created. 
 
 
-# 2 - CREATE setup.py 
+# 4 - Create setup.py 
 
 An example of a setup.py script can be found [here](https://github.com/pypa/sampleproject/blob/master/setup.py) and [here](https://setuptools.readthedocs.io/en/latest/setuptools.html).
 
 Important info regarding package directory: do not mistake `package_dir `with` package. `It is better to use only the variable` package `and this should indicate the directory of our package!!! (really, it isn’t so obvious).
 
+```python
+# Always prefer setuptools over distutils 
+from setuptools import setup, find_packages  # pylint: disable=no-name-in-module,import-error 
+import io 
+from os import path 
+ 
+here = path.abspath(path.dirname(__file__)) 
 
-<table>
-  <tr>
-   <td><code># Always prefer setuptools over distutils \
-from setuptools import setup, find_packages  # pylint: disable=no-name-in-module,import-error \
-import io \
-from os import path \
- \
-here = path.abspath(path.dirname(__file__)) \
-# Get the long description from the README file \
-with open(path.join(here, 'README.md'), encoding='utf-8') as f: \
-   long_description = f.read() \
-# Get the requirements of the packages \
-with open('mypackage/dependencies/dependencies.txt') as f: \
-   requirements = f.read().splitlines() \
-# Arguments marked as "Required" below must be included for upload to PyPI. \
-# Fields marked as "Optional" may be commented out. \
-setup( \
-   name='mypackage',  # Required \
-   version='0.1.0',  # Required \
-   author='Victoria Ruiz-Serra',  # Optional \
-   author_email='',  # Optional \
-   url="https://github.com/user/yourpackage",  # Optional \
-   # NOTE!: To download the package first you have to make it public and do a release \
-   download_url='https://github.com/user/yourpackage/archive/v_01.tar.gz',  \
-   description='Ashort description here',  # Optional \
-   long_description=long_description,  # Optional \
-   long_description_content_type='text/markdown',  # Optional (see note above) \
-   keywords=["some", "keywords", "heaywords"],  #Optional \
-   packages=['application1', 'application2',],  # Required!!!!! \
-   python_requires='>=3, <4', # Optional  \
-   install_requires=requirements,  # Optional \
-   entry_points={ \
-       "console_scripts": ['application1=application1.__main__:main', \
-                           'application2=application2.__main__:main']   \
-   }, \
-)</code>
-   </td>
-  </tr>
-  <tr>
-   <td>
-   </td>
-  </tr>
-</table>
-
-
-
-# 
-
-
-# Including data files
-
-When our code depends on data files and we want to include this in the installation we need to add the option ‘package data’ in our setup.py. 
-
-
+# Get the long description from the README file 
+with open(path.join(here, 'README.md'), encoding='utf-8') as f: 
+   long_description = f.read() 
+# Get the requirements of the packages 
+with open('mypackage/dependencies/dependencies.txt') as f: 
+   requirements = f.read().splitlines() 
+# Arguments marked as "Required" below must be included for upload to PyPI. 
+# Fields marked as "Optional" may be commented out. 
+setup( 
+   name='mypackage',  # Required 
+   version='0.1.0',  # Required 
+   author='Victoria Ruiz-Serra',  # Optional 
+   author_email='',  # Optional 
+   url="https://github.com/user/yourpackage",  # Optional 
+   # Note: To download the package first you have to make it public and do a release 
+   download_url='https://github.com/user/pkg/archive/v_01.tar.gz',  
+   description='Ashort description here',  # Optional 
+   long_description=long_description,  # Optional 
+   long_description_content_type='text/markdown',  # Optional 
+   keywords=["some", "keywords", "heaywords"],  #Optional 
+   packages=['application1', 'application2',],  # Required!!!!! 
+   python_requires='>=3, <4', # Optional  
+   install_requires=requirements,  # Optional 
+   entry_points={ 
+       "console_scripts": ['application1=application1.__main__:main', 
+                           'application2=application2.__main__:main']   
+   }, 
+)
 ```
-   package_data={
-       # And include any *.dat files found in the 'data' subdirectory
-       # of the 'mypkg' package, also:
-       'pdbmapper': ['data/*']
-   },
+
+## 4.1 Data files
+
+When our code depends on data files and we want to include them in the installation process we need to add the option ‘package data’ in  setup.py. 
+
+
+```python
+setup(...,
+      # And include any *.dat files found in the 'data' subdirectory
+      # of the 'mypackage' package, also:
+      package_data={'pdbmapper': ['data/*'] }
+      
+       
+   }, ...
+)
 ```
 
 
@@ -184,7 +166,7 @@ See an example of how to implement distutils  [here](https://stackoverflow.com/q
 My example can be found below. My package depends on BCFTools which is hosted in github. I just indicate the download 
 
 
-```
+```python
 #import disutils functionality already built in setuptools
 from setuptools.command.install import install as DistutilsInstall
 
