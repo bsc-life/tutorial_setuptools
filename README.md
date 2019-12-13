@@ -1,14 +1,12 @@
-# INSTRUCTIONS TO BUILD A COMMAND-LINE APPLICATION
+# Instructions to build a command line application
 
-LANGUAGE: Python 3.6
+**Programming Language**: Python 3.6
+**Author**: Victoria Ruiz-Serra
+**e-mail**: victoria.ruizserra@bsc.es
 
-AUTHOR: Victoria Ruiz-Serra
+*Note: This is a tutorial from an ammateur developer of a Python package. Despite my inexperience, I decided to share my little knwoledge and perhaps save some of your time. Since I struggled sometimes to understand and implement some of the functions of my command line, I tried to point out those not-so-obvious steps. I think this is a good manual if you are a beginner like me.*
 
-EMAIL: victoria.ruizserra@bsc.es
-
-As an ammateur in developing a Python package, I had to struggle a lot. To save you some 
-
-Here you can find a recipe to build your own Python package in easy steps for a command-line application. 
+Here you will find an easy-to-follow recipe to build your own Python command-line application.
 
 
 # DIRECTORY STRUCTURE
