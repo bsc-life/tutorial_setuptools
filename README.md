@@ -253,8 +253,14 @@ The printed output should show the tree file structure indicated at the beginnin
 
 Also, execute your command line application. 
 
-```
- mypackage
+```shell
+$ application1
+
+this is just a test for app1
+
+$ application1
+
+this is just a test for app2
 ```
 Now your package should be executed correctly. 
 
